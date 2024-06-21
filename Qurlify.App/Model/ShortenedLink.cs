@@ -10,6 +10,5 @@ public class ShortenedLink(string longUrl)
     public string LongUrl { get; set; } = longUrl;
     public string link { get; set; } = Formatter.PartitionKey();
     public int HitCounter { get; set; }
-
     public DateTime DateCreated { get; private set; } = DateTime.Now;
 }

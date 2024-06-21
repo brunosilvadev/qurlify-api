@@ -10,10 +10,8 @@ public class LinkEndpoint(ICosmosService cosmosService) : IEndpoint
         app.MapGet("/c", CreateLink);        
     }
 
-    public async Task<IEnumerable<ShortenedLink>> GetAllLinks()
-    {
-        return await cosmosService.GetItemsAsync("SELECT * FROM c");
-    }
+    public async Task<IEnumerable<ShortenedLink>> GetAllLinks() =>
+        await cosmosService.GetItemsAsync("SELECT * FROM c");
 
     public async Task<IEnumerable<ShortenedLink>> GetLink(string url) =>
         await cosmosService.GetItemsByPartitionKeyAsync(url);
@@ -21,4 +19,9 @@ public class LinkEndpoint(ICosmosService cosmosService) : IEndpoint
     public async Task CreateLink(string longUrl) =>
         await cosmosService.CreateLink(longUrl);
 
+}
+
+public interface IEndpoint
+{
+    void RegisterRoutes(IEndpointRouteBuilder app);
 }
