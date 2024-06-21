@@ -13,8 +13,6 @@ public class CosmosService : ICosmosService
         _cosmosClient = cosmosClient;
         var databaseId = configuration["CosmosDb:DatabaseId"];
         var containerId = configuration["CosmosDb:ContainerId"];
-        Console.WriteLine(databaseId);
-        Console.WriteLine(containerId);
         _container = _cosmosClient.GetContainer(databaseId, containerId);
     }
 
