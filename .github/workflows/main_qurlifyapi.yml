@@ -19,7 +19,7 @@ jobs:
       - name: Replace db key
         uses: datamonsters/replace-action@v2
         with:
-          files: 'App/appsettings.json'
+          files: 'Qurlify.App/appsettings.json'
           replacements: 'chave=${{ secrets.COSMOS_KEY }}'
 
       - name: Set up .NET Core
