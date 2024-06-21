@@ -4,7 +4,7 @@ public class CosmosService : ICosmosService
 {
     private readonly CosmosClient _cosmosClient;
     private readonly Container _container;
-    public CosmosDataProvider(CosmosClient cosmosClient, IConfiguration configuration)
+    public CosmosService(CosmosClient cosmosClient, IConfiguration configuration)
     {
         _cosmosClient = cosmosClient;
         var databaseId = configuration["CosmosDb:DatabaseId"];
