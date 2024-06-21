@@ -16,6 +16,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Replace db key
+        uses: datamonsters/replace-action@v2
+        with:
+          files: 'App/appsettings.json'
+          replacements: 'chave=${{ secrets.COSMOS_KEY }}'
+
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v1
         with:
