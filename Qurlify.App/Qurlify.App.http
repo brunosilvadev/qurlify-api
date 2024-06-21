@@ -1,6 +1,7 @@
-@Qurlify.App_HostAddress = http://localhost:5021
+@LocalAddress = http://localhost:5021
 
-GET {{Qurlify.App_HostAddress}}/a/
+@RemoteAddress = https://qurlifyapi.azurewebsites.net
+GET {{RemoteAddress}}/all/
 Accept: application/json
 
 ###
