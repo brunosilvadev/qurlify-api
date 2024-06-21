@@ -1,11 +1,11 @@
 using Microsoft.OpenApi.Models;
 using Microsoft.Azure.Cosmos;
+using Qurlify.Data;
 
 public static class DependencyInitializer
 {
     public static IServiceCollection AddDIServices(this IServiceCollection services)
     {
-        
         services.AddSingleton<CosmosClient>(serviceProvider =>
         {
             var configuration = serviceProvider.GetRequiredService<IConfiguration>();
@@ -13,8 +13,8 @@ public static class DependencyInitializer
             var cosmosKey = configuration["CosmosDb:Key"];
             return new CosmosClient(cosmosEndpoint, cosmosKey);
         });
-
-        services.AddScoped<ICosmosService, CosmosService>();
+        services.AddSingleton<ICosmosService, CosmosService>();
+        services.AddTransient<IEndpoint, LinkEndpoint>();
 
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen(c =>
@@ -33,5 +33,14 @@ public static class DependencyInitializer
             c.RoutePrefix = ""; c.SwaggerEndpoint("/swagger/v1/swagger.json", "Qurlify v0.1");
         });
         return builder;
+    }
+
+    public static WebApplication UseEndpoints(this WebApplication app)
+    {
+        var endpoints = app.Services.GetServices<IEndpoint>().ToList();
+        
+        endpoints.ForEach(e => e.RegisterRoutes(app));
+
+        return app;
     }
 }

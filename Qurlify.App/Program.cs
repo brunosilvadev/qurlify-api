@@ -1,11 +1,7 @@
 var builder = WebApplication.CreateBuilder(args);
-
 builder.Services.AddDIServices();
 
 var app = builder.Build();
-
-var endpoint = app.Services.GetService<IEndpoint>();
-endpoint?.RegisterRoutes(app);
 
 if (app.Environment.IsDevelopment())
 {
@@ -13,6 +9,5 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-
+app.UseEndpoints();
 app.Run();

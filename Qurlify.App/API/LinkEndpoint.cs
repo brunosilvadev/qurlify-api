@@ -1,14 +1,24 @@
+using Qurlify.Data;
 using Qurlify.Model;
 
-public class LinkEndpoint : IEndpoint
+public class LinkEndpoint(ICosmosService cosmosService) : IEndpoint
 {
     public void RegisterRoutes(IEndpointRouteBuilder app)
     {
-
+        app.MapGet("/all", GetAllLinks);
+        app.MapGet("/s", GetLink);
+        app.MapGet("/c", CreateLink);        
     }
 
-    public IEnumerable<Link> GetAllLinks()
+    public async Task<IEnumerable<ShortenedLink>> GetAllLinks()
     {
-        return new List<Link>();
+        return await cosmosService.GetItemsAsync("SELECT * FROM c");
     }
+
+    public async Task<IEnumerable<ShortenedLink>> GetLink(string url) =>
+        await cosmosService.GetItemsByPartitionKeyAsync(url);
+
+    public async Task CreateLink(string longUrl) =>
+        await cosmosService.CreateLink(longUrl);
+
 }

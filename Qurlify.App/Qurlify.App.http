@@ -1,6 +1,6 @@
 @Qurlify.App_HostAddress = http://localhost:5021
 
-GET {{Qurlify.App_HostAddress}}/weatherforecast/
+GET {{Qurlify.App_HostAddress}}/a/
 Accept: application/json
 
 ###
