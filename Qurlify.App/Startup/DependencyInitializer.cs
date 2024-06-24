@@ -49,7 +49,7 @@ public static class DependencyInitializer
     public static WebApplication ConfigureCors(this WebApplication app)
     {
         app.UseCors(options =>
-            options.WithOrigins("http://localhost:5021", "hhttps://agreeable-beach-00690dd1e.5.azurestaticapps.net/","https://www.qurlify.me")
+            options.WithOrigins("http://localhost:5299", "https://agreeable-beach-00690dd1e.5.azurestaticapps.net","https://www.qurlify.me","https://qurlify.me")
             .AllowAnyMethod()
             .AllowAnyHeader()
         );
