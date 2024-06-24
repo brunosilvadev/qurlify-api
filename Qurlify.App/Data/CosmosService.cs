@@ -36,7 +36,7 @@ public class CosmosService : ICosmosService
 
         return link.link;
     }
-    public async Task<IEnumerable<ShortenedLink>> GetItemsByPartitionKeyAsync(string partitionKey)
+    public async Task<ShortenedLink> GetItemsByPartitionKeyAsync(string partitionKey)
     {
         var queryDefinition = new QueryDefinition("SELECT * FROM c");
         var requestOptions = new QueryRequestOptions
@@ -53,7 +53,7 @@ public class CosmosService : ICosmosService
             results.AddRange([.. response]);
         }
 
-        return results;
+        return results[0];
     }
 }
 
@@ -61,5 +61,5 @@ public interface ICosmosService
 {
     Task<IEnumerable<ShortenedLink>> GetItemsAsync(string query);
     Task<string> ShortenLink(CreateLinkRequest request);
-    Task<IEnumerable<ShortenedLink>> GetItemsByPartitionKeyAsync(string partitionKey);
+    Task<ShortenedLink> GetItemsByPartitionKeyAsync(string partitionKey);
 }

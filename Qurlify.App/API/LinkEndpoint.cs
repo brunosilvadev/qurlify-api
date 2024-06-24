@@ -14,7 +14,7 @@ public class LinkEndpoint(ICosmosService cosmosService) : IEndpoint
     public async Task<IEnumerable<ShortenedLink>> GetAllLinks() =>
         await cosmosService.GetItemsAsync("SELECT * FROM c");
 
-    public async Task<IEnumerable<ShortenedLink>> GetLink(string url) =>
+    public async Task<ShortenedLink> GetLink(string url) =>
         await cosmosService.GetItemsByPartitionKeyAsync(url);
 
     public async Task<string> ShortenLink([FromBody] CreateLinkRequest request) =>

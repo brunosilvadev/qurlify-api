@@ -5,3 +5,5 @@ GET {{RemoteAddress}}/all/
 Accept: application/json
 
 ###
+GET {{RemoteAddress}}/s?url=12db58bc
+Accept: application/json
