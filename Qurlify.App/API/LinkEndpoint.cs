@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Qurlify.Data;
 using Qurlify.Model;
 
@@ -7,7 +8,7 @@ public class LinkEndpoint(ICosmosService cosmosService) : IEndpoint
     {
         app.MapGet("/all", GetAllLinks);
         app.MapGet("/s", GetLink);
-        app.MapGet("/c", CreateLink);        
+        app.MapPost("/c", ShortenLink);        
     }
 
     public async Task<IEnumerable<ShortenedLink>> GetAllLinks() =>
@@ -16,8 +17,8 @@ public class LinkEndpoint(ICosmosService cosmosService) : IEndpoint
     public async Task<IEnumerable<ShortenedLink>> GetLink(string url) =>
         await cosmosService.GetItemsByPartitionKeyAsync(url);
 
-    public async Task CreateLink(string longUrl) =>
-        await cosmosService.CreateLink(longUrl);
+    public async Task<string> ShortenLink([FromBody] CreateLinkRequest request) =>
+        await cosmosService.ShortenLink(request);
 
 }
 

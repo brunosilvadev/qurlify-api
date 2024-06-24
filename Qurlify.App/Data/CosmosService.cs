@@ -29,10 +29,12 @@ public class CosmosService : ICosmosService
         return results;
     }
 
-    public async Task CreateLink(string longUrl)
+    public async Task<string> ShortenLink(CreateLinkRequest request)
     {
-        var link = new ShortenedLink(longUrl);
+        var link = new ShortenedLink(request);
         await _container.CreateItemAsync(link, new PartitionKey(link.link));
+
+        return link.link;
     }
     public async Task<IEnumerable<ShortenedLink>> GetItemsByPartitionKeyAsync(string partitionKey)
     {
@@ -58,6 +60,6 @@ public class CosmosService : ICosmosService
 public interface ICosmosService
 {
     Task<IEnumerable<ShortenedLink>> GetItemsAsync(string query);
-    Task CreateLink(string longUrl);
+    Task<string> ShortenLink(CreateLinkRequest request);
     Task<IEnumerable<ShortenedLink>> GetItemsByPartitionKeyAsync(string partitionKey);
 }
