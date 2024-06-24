@@ -22,6 +22,8 @@ public static class DependencyInitializer
             c.SwaggerDoc("v1", new OpenApiInfo { Title = "Qurlify", Version = "v1" });
         });
 
+        services.AddCors();
+
         return services;
     }
 
@@ -41,6 +43,16 @@ public static class DependencyInitializer
         
         endpoints.ForEach(e => e.RegisterRoutes(app));
 
+        return app;
+    }
+
+    public static WebApplication ConfigureCors(this WebApplication app)
+    {
+        app.UseCors(options =>
+            options.WithOrigins("http://localhost:5021", "hhttps://agreeable-beach-00690dd1e.5.azurestaticapps.net/","https://www.qurlify.me")
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+        );
         return app;
     }
 }

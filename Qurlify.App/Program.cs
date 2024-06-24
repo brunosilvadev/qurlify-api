@@ -10,4 +10,5 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseEndpoints();
+app.ConfigureCors();
 app.Run();
