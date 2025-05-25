@@ -1,4 +1,6 @@
-obj/Debug/net8.0
-obj/Debug/obj
+# Ignore build output directories
+**/bin/
+**/obj/
+.vs/
 Qurlify.App/obj/*
 Qurlify.App/bin/*
